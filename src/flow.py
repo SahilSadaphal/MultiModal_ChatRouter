@@ -145,7 +145,6 @@ class MultiModalFlow():
             REQUIRED OUTPUT FORMAT:
             1. Explanation: What does the code do?
             2. Bug Report: Detect and list any potential bugs or security issues.
-            3. Time Complexity: Mention the Big O notation.
             """
         elif intent=="general_chat":
             logger.info("General chat intent detected, Constructing prompt.")
@@ -185,14 +184,13 @@ class MultiModalFlow():
         self.workflow.add_edge("clarification_node", END)
         self.workflow.add_edge("executor_node", END)
     
-    def run(self, user_query:str, history:List[BaseMessage],extracted_text:str, metadata:dict={}):
+    def run(self, user_query:str, history:List[BaseMessage],extracted_text:str):
         """
         The main entry point to call from FastAPI.
         """
         initial_state={
             "user_query": user_query,
             "extracted_text": extracted_text,
-            "metadata": metadata,
             "intent": "",
             "final_response": "",
             "chat_history": history

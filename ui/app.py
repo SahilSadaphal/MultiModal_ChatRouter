@@ -28,7 +28,7 @@ def send_message_to_bot(message, file=None):
     files = {}
     if file:
         files["file"] = (file.name, file.getvalue(), file.type)
-
+    print(f"File :{files}")
     try:
         with st.spinner("Bot is thinking..."):
             response = requests.post(CHATBOT_API_URL, data=payload, files=files)
@@ -50,7 +50,6 @@ if st.button("Send"):
     else:
         bot_reply = send_message_to_bot(message_input, uploaded_file)
         if bot_reply:
-            # Append messages to chat history
             st.session_state.chat_history.append(("You", message_input))
             st.session_state.chat_history.append(("Bot", bot_reply))
 
